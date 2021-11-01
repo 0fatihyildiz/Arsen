@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arsen</title>
+    <link rel="stylesheet" href="./src/tailwind.css">
+    <link rel="stylesheet" href="./src/index.css">
+</head>
+
+<body x-data="{video:false}">
+    <div x-show="video" class="fixed z-20 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
+        aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div x-show="video" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200"
+                x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                x-description="Background overlay, show/hide based on modal state."
+                class="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity" @click="video = false"
+                aria-hidden="true" aria-hidden="true"></div>
+
+            <!-- This element is to trick the browser into centering the modal contents. -->
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div x-show="video" x-transition:enter="ease-out duration-300"
+                x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+                x-transition:leave="ease-in duration-200"
+                x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                class="inline-block rounded-lg text-left overflow-hidden shadow-xl transform transition-all align-middle sm:max-w-2xl w-full h-72 sm:h-96">
+                <template x-if="video">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/KXkkKm4AwBg?controls=0"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </template>
+            </div>
+        </div>
+    </div>
+    <div class="pb-8 sm:pb-12 lg:pb-12 overflow-x-hidden">
+        <div class="pt-8 sm:pt-12 lg:relative lg:py-40">
+            <div
+                class="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl lg:grid lg:grid-cols-2 lg:gap-24">
+                <div>
+                    <div>
+                        <svg class="h-11 w-auto" viewBox="0 0 91 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8.72 34.56C7.73333 34.56 6.86667 34.48 6.12 34.32C5.37333 34.16 4.72 33.7733 4.16 33.16C3.62667 32.5467 3.36 31.6 3.36 30.32C3.36 28.5333 3.89333 26.1333 4.96 23.12C6.05333 20.1067 7.48 17.08 9.24 14.04C7.90667 14.12 6.85333 14.32 6.08 14.64C5.30667 14.96 4.8 15.4533 4.56 16.12C4.66667 16.12 4.77333 16.2533 4.88 16.52C5.01333 16.7867 5.08 17.0667 5.08 17.36C5.08 17.84 4.86667 18.2267 4.44 18.52C4.01333 18.7867 3.48 18.92 2.84 18.92C2.09333 18.92 1.49333 18.72 1.04 18.32C0.586667 17.92 0.36 17.3467 0.36 16.6C0.36 15.6933 0.706667 14.8667 1.4 14.12C2.12 13.3733 3.10667 12.7867 4.36 12.36C5.61333 11.9067 7 11.68 8.52 11.68C9.08 11.68 9.77333 11.72 10.6 11.8C12.7867 8.33333 15.0933 5.50666 17.52 3.32C19.9733 1.10666 22.3067 -2.38419e-06 24.52 -2.38419e-06C25.8 -2.38419e-06 26.8533 0.186664 27.68 0.559998L21.4 30H15.64L18.72 15.48C17.7333 15.0267 16.8267 14.6933 16 14.48C15.1733 14.2667 14.2933 14.12 13.36 14.04C11.84 17.32 10.5867 20.68 9.6 24.12C8.64 27.5333 8.16 30.2667 8.16 32.32C8.16 33.3333 8.34667 34.08 8.72 34.56ZM21.4 2.84C20.2533 3.45333 19.0533 4.6 17.8 6.28C16.5733 7.93333 15.3733 9.94667 14.2 12.32C16.12 12.6933 17.7467 13.16 19.08 13.72L21.4 2.84ZM29.4388 10H35.1988L34.6788 12.48C35.5854 11.68 36.3988 11.0667 37.1188 10.64C37.8654 10.2133 38.6654 10 39.5188 10C40.3721 10 41.0388 10.2933 41.5188 10.88C42.0254 11.4667 42.2788 12.1733 42.2788 13C42.2788 13.7733 42.0254 14.4533 41.5188 15.04C41.0121 15.6267 40.3054 15.92 39.3988 15.92C38.8121 15.92 38.4121 15.7867 38.1988 15.52C38.0121 15.2267 37.8654 14.8133 37.7588 14.28C37.6788 13.9333 37.5988 13.68 37.5188 13.52C37.4388 13.36 37.2921 13.28 37.0788 13.28C36.5188 13.28 36.0388 13.4 35.6388 13.64C35.2654 13.8533 34.7721 14.24 34.1588 14.8L30.9588 30H25.1987L29.4388 10ZM46.3178 30.24C45.0378 30.24 43.9578 30 43.0778 29.52C42.1978 29.0133 41.5445 28.3733 41.1178 27.6C40.6911 26.8 40.4778 25.9733 40.4778 25.12C40.4778 24.24 40.6911 23.48 41.1178 22.84C41.5178 22.1733 42.0111 21.6933 42.5978 21.4C43.6378 19.5333 44.5445 17.6533 45.3178 15.76C46.0911 13.84 46.8245 11.7733 47.5178 9.56L53.4378 8.76C53.5711 12.1733 53.7978 15.8667 54.1178 19.84C54.2511 21.44 54.3178 22.6 54.3178 23.32C54.3178 23.9333 54.2645 24.44 54.1578 24.84C55.4111 24.12 56.3711 23.4533 57.0378 22.84H58.7178C57.0111 24.8133 54.9711 26.48 52.5978 27.84C51.8245 28.6667 50.8645 29.28 49.7178 29.68C48.5978 30.0533 47.4645 30.24 46.3178 30.24ZM45.0378 27.08C46.0245 27.08 46.8511 26.7867 47.5178 26.2C48.1845 25.6133 48.5178 24.6667 48.5178 23.36C48.5178 22.56 48.4378 21.44 48.2778 20C48.0111 16.96 47.8378 14.92 47.7578 13.88C47.1178 15.9867 46.0378 18.5067 44.5178 21.44C45.1311 21.76 45.4378 22.2267 45.4378 22.84C45.4378 23.3467 45.2645 23.8 44.9178 24.2C44.5978 24.6 44.1845 24.8 43.6778 24.8C43.1178 24.8 42.7578 24.6267 42.5978 24.28C42.5978 25.24 42.7845 25.9467 43.1578 26.4C43.5578 26.8533 44.1845 27.08 45.0378 27.08ZM62.7513 30.24C60.7779 30.24 59.2446 29.7333 58.1513 28.72C57.0579 27.68 56.5112 26.0667 56.5112 23.88C56.5112 22.04 56.8712 20.0133 57.5913 17.8C58.3113 15.5867 59.4846 13.68 61.1113 12.08C62.7379 10.4533 64.8046 9.64 67.3112 9.64C70.2446 9.64 71.7113 10.92 71.7113 13.48C71.7113 14.9733 71.2846 16.3467 70.4313 17.6C69.5779 18.8533 68.4446 19.8667 67.0312 20.64C65.6179 21.3867 64.1113 21.8133 62.5113 21.92C62.4579 22.72 62.4313 23.2533 62.4313 23.52C62.4313 24.8267 62.6579 25.72 63.1113 26.2C63.5646 26.6533 64.2979 26.88 65.3113 26.88C66.7513 26.88 67.9779 26.5467 68.9913 25.88C70.0313 25.2133 71.1646 24.2 72.3913 22.84H73.7513C70.7913 27.7733 67.1246 30.24 62.7513 30.24ZM62.8313 20C63.8179 19.9467 64.7513 19.6 65.6313 18.96C66.5379 18.32 67.2579 17.5067 67.7913 16.52C68.3513 15.5333 68.6313 14.4933 68.6313 13.4C68.6313 12.3067 68.2979 11.76 67.6313 11.76C66.6713 11.76 65.7246 12.6 64.7913 14.28C63.8846 15.96 63.2313 17.8667 62.8313 20ZM86.1428 30.24C84.7295 30.24 83.7028 29.8133 83.0628 28.96C82.4228 28.1067 82.1028 27.0267 82.1028 25.72C82.1028 25.16 82.1695 24.5333 82.3028 23.84C82.4361 23.12 82.5695 22.4267 82.7028 21.76C82.8628 21.0933 82.9695 20.6667 83.0228 20.48C83.2361 19.5467 83.4361 18.6267 83.6228 17.72C83.8095 16.8133 83.9028 16.08 83.9028 15.52C83.9028 14.16 83.4228 13.48 82.4628 13.48C81.7695 13.48 81.1561 13.8267 80.6228 14.52C80.0895 15.1867 79.6628 16.0667 79.3428 17.16L76.6228 30H70.8628L75.1028 10H80.8628L80.4228 12.08C81.7561 10.5867 83.3161 9.84 85.1028 9.84C86.4628 9.84 87.5428 10.2133 88.3428 10.96C89.1428 11.7067 89.5428 12.84 89.5428 14.36C89.5428 15.1333 89.4495 16 89.2628 16.96C89.0761 17.8933 88.8095 19.04 88.4628 20.4C88.2495 21.2267 88.0495 22.04 87.8628 22.84C87.7028 23.6133 87.6228 24.2267 87.6228 24.68C87.6228 25.2133 87.7428 25.6267 87.9828 25.92C88.2228 26.2133 88.6361 26.36 89.2228 26.36C89.8628 26.36 90.3028 26.28 90.5428 26.12C90.3828 27.48 89.8895 28.5067 89.0628 29.2C88.2628 29.8933 87.2895 30.24 86.1428 30.24Z"
+                                fill="#2563EB" />
+                        </svg>
+                    </div>
+                    <div class="mt-20">
+                        <div>
+                            <a href="#" class="inline-flex space-x-2">
+                                <span
+                                    class="rounded bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-600 tracking-wide uppercase">
+                                    Webinar etkinligi 4 Aralık 2021
+                                </span>
+                            </a>
+                        </div>
+                        <div class="mt-6 sm:max-w-xl">
+                            <h1 class="text-3xl font-extrabold text-gray-600 sm:text-5xl">
+                                Avusturulyada Eğitim <span class="z-10 relative whitespace-nowrap text-blue-500">Soru ve
+                                    Cevap</span>
+                            </h1>
+                            <p class="mt-2 text-sm text-gray-500 z-10 relative">
+                                Avusturalyada eğitim hakkında merak ettiğiniz soruların cevaplarını duymaya
+                                hazırmısınız?
+                            </p>
+                        </div>
+                        <div class="sm:flex py-4 space-y-4 sm:space-y-0 sm:space-x-6">
+                            <button type="button"
+                                class="inline-flex w-full sm:w-auto justify-center items-center px-8 py-3 border border-transparent text-xs font-medium rounded-full shadow-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Geleceğini Şekillendir
+                            </button>
+                            <button type="button"
+                                class="inline-flex w-full sm:w-auto justify-center items-center px-8 py-3 text-xs font-medium rounded-full text-gray-500 border border-gray-200 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Daha Fazla
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sm:mx-auto sm:max-w-3xl sm:px-6">
+                <div
+                    class="py-12 sm:relative sm:mt-12 sm:py-16 lg:absolute transform lg:-translate-y-1/2 lg:top-1/2 lg:right-0 lg:w-1/2">
+                    <div class="hidden sm:block">
+                        <div
+                            class="absolute inset-y-0 left-1/2 w-screen bg-gray-50 rounded-l-3xl lg:left-80 lg:right-0 lg:w-full">
+                        </div>
+                        <svg class="absolute top-8 right-1/2 -mr-3 lg:m-0 lg:left-0" width="404" height="392"
+                            fill="none" viewBox="0 0 404 392">
+                            <defs>
+                                <pattern id="837c3e70-6c3a-44e6-8854-cc48c737b659" x="0" y="0" width="20" height="20"
+                                    patternUnits="userSpaceOnUse">
+                                    <rect x="0" y="0" width="4" height="4" class="text-blue-100" fill="currentColor" />
+                                </pattern>
+                            </defs>
+                            <rect width="404" height="392" fill="url(#837c3e70-6c3a-44e6-8854-cc48c737b659)" />
+                        </svg>
+                    </div>
+                    <div class="relative pl-4 -mr-40 sm:mx-auto sm:max-w-3xl sm:px-0 lg:pl-12">
+                        <button @click="video = !video"
+                            class="transition-all duration-300 absolute p-0 h-16 w-16 backdrop-filter backdrop-blur-sm text-white hover:scale-125 top-1/2 -translate-y-1/2 left-1/2 transform -translate-x-1/2 lg:translate-x-1/3 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="h-24 w-24 absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2"
+                                viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <svg class="hidden md:block absolute w-24 z-10 transform -translate-y-20 -translate-x-20"
+                            viewBox="0 0 67 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="14.0791" y="15.4229" width="5.34487" height="42.9646" rx="2.67244"
+                                transform="rotate(-45.6895 14.0791 15.4229)" fill="#2563EB" />
+                            <rect x="60.8983" width="5.34487" height="34.4297" rx="2.67244"
+                                transform="rotate(1.49509 60.8983 0)" fill="#2563EB" />
+                            <rect x="0.410278" y="65.9716" width="5.34487" height="34.4297" rx="2.67244"
+                                transform="rotate(-94.4018 0.410278 65.9716)" fill="#2563EB" />
+                        </svg>
+                        <img class="w-full rounded-md shadow-xl ring-1 ring-black ring-opacity-5 lg:h-full lg:w-auto lg:max-w-none"
+                            src="https://www.extravelmoney.com/blog/wp-content/uploads/2017/06/Best-Universities-In-Australia-For-MS-Monash-University.jpg"
+                            alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sm:max-w-xl md:max-w-full lg:max-3xl md:px-24 lg:px-8 mb-10 mx-auto text-center md:mb-12 pt-20">
+        <div>
+            <span class="rounded bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-600 tracking-wide uppercase">
+                Webinar etkinligi 4 aralık 2021
+            </span>
+        </div>
+        <h2 class="my-2 font-sans font-bold leading-none tracking-tight text-gray-700 text-4xl mx-auto">
+            Ücretsiz Webinarın başlamasına kalan
+            <span class="-z-10 relative inline-block">
+                <svg class="absolute top-0 right-0 z-0 hidden w-12 -mt-8 -mr-8 text-gray-500 lg:block"
+                    viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="3.01656" height="24.2485" rx="1.50828"
+                        transform="matrix(-0.698547 -0.715565 -0.715565 0.698547 29.6807 8.70435)" fill="#2563EB" />
+                    <rect width="3.01656" height="19.4316" rx="1.50828"
+                        transform="matrix(-0.99966 0.0260912 0.0260912 0.99966 3.25671 0)" fill="#2563EB" />
+                    <rect width="3.01656" height="19.4316" rx="1.50828"
+                        transform="matrix(0.0767501 -0.99705 -0.99705 -0.0767501 37.3951 37.2333)" fill="#2563EB" />
+                </svg>
+                <span class="relative text-wreping">süre</span>
+            </span>
+
+        </h2>
+        <p class="text-sm text-gray-500">
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque rem aperiam, eaque
+            ipsa quae.
+        </p>
+    </div>
+    <div class="px-4 pb-12 mx-auto sm:max-w-xl md:max-w-full lg:max-w-3xl md:px-24 lg:px-8 flex flex-col items-center">
+        <div
+            class="flex flex-col md:flex-row md:space-x-24 w-full md:w-auto divide-y divide-gray-200 md:divide-transparent px-4">
+            <div class="text-center py-10 md:py-0">
+                <h6 class="text-5xl font-semibold text-blue-600" id="days"></h6>
+                <p class="font-medium text-gray-500">Gün</p>
+            </div>
+            <div class="text-center py-10 md:py-0">
+                <h6 class="text-5xl font-semibold text-blue-600" id="hours"></h6>
+                <p class="font-medium text-gray-500">Saat</p>
+            </div>
+            <div class="text-center py-10 md:py-0">
+                <h6 class="text-5xl font-semibold text-blue-600" id="minutes"></h6>
+                <p class="font-medium text-gray-500">Dakika</p>
+            </div>
+            <div class="text-center py-10 md:py-0">
+                <h6 class="text-5xl font-semibold text-blue-600" id="seconds"></h6>
+                <p class="font-medium text-gray-500">Saniye</p>
+            </div>
+        </div>
+        <button type="button"
+            class="inline-flex items-center px-8 py-3 mt-5 text-xs font-medium rounded-full text-gray-500 border border-gray-200 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            Daha Fazla bilgi
+        </button>
+    </div>
+
+    <div class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-">
+        <div class="sm:max-w-xl md:max-w-full lg:max-3xl md:px-24 lg:px-8 mb-10 mx-auto text-center md:mb-12 pt-20">
+            <h2 class="my-2 font-sans font-bold leading-none tracking-tight text-gray-700 text-4xl mx-auto">
+                Webinar'da hangi soruların cevabını
+                <span class="-z-10 relative inline-block">
+                    <svg class="absolute top-0 right-0 z-0 hidden w-12 -mt-8 -mr-8 text-gray-500 lg:block"
+                        viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="3.01656" height="24.2485" rx="1.50828"
+                            transform="matrix(-0.698547 -0.715565 -0.715565 0.698547 29.6807 8.70435)" fill="#2563EB" />
+                        <rect width="3.01656" height="19.4316" rx="1.50828"
+                            transform="matrix(-0.99966 0.0260912 0.0260912 0.99966 3.25671 0)" fill="#2563EB" />
+                        <rect width="3.01656" height="19.4316" rx="1.50828"
+                            transform="matrix(0.0767501 -0.99705 -0.99705 -0.0767501 37.3951 37.2333)" fill="#2563EB" />
+                    </svg>
+                    <span class="relative text-wreping">alıcaz ?</span>
+                </span>
+
+            </h2>
+            <p class="text-sm text-gray-500">
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque rem aperiam, eaque
+                ipsa quae.
+            </p>
+        </div>
+        <div class="grid gap-6 row-gap-5 lg:grid-cols-3">
+            <div>
+                <img class="object-cover w-full h-64 mb-6 rounded shadow-lg lg:h-80 xl:h-96"
+                    src="https://images.pexels.com/photos/3184311/pexels-photo-3184311.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;w=500"
+                    alt="" />
+                <h5 class="mb-2 text-xl font-bold leading-none text-gray-700">
+                    Dil okulu
+                </h5>
+                <p class="text-gray-500 text-sm">
+                    O for awesome, this chocka full cuzzie is as rip-off as a cracker. Meanwhile, in behind the bicycle
+                    shed, Hercules Morse.
+                </p>
+            </div>
+            <div>
+                <img class="object-cover w-full h-64 mb-6 rounded shadow-lg lg:h-80 xl:h-96"
+                    src="https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+                    alt="" />
+                <h5 class="mb-2 text-xl font-bold leading-none text-gray-700">
+                    Sertifika / diploma
+                </h5>
+                <p class="text-gray-500 text-sm">
+                    I'll be sure to note that in my log. Smooth as an android's bottom, eh, Data? When has justice ever
+                    been as simple as a rule book?
+                </p>
+            </div>
+            <div>
+                <img class="object-cover w-full h-64 mb-6 rounded shadow-lg lg:h-80 xl:h-96"
+                    src="https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+                    alt="" />
+                <h5 class="mb-2 text-xl font-bold leading-none text-gray-700">
+                    Q&A
+                </h5>
+                <p class="text-gray-500 text-sm">
+                    Yolo ipsum dolor sit amet, consectetur adipiscing elit. Ut ac suscipit leo. Carpe diem vulputate est
+                    nec commodo rutrum.
+                </p>
+            </div>
+        </div>
+    </div>    
+
+    <section class="overflow-hidden py-20">
+        <div class="relative max-w-7xl mx-auto pt-20 pb-12 px-4 sm:px-6 lg:px-8 lg:py-20">
+        <svg class="absolute top-full left-0 transform translate-x-80 -translate-y-24 lg:hidden" width="784" height="404" fill="none" viewBox="0 0 784 404" aria-hidden="true">
+            <defs>
+            <pattern id="e56e3f81-d9c1-4b83-a3ba-0d0ac8c32f32" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                <rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor" />
+            </pattern>
+            </defs>
+            <rect width="784" height="404" fill="url(#e56e3f81-d9c1-4b83-a3ba-0d0ac8c32f32)" />
+        </svg>
+    
+        <svg class="hidden lg:block absolute right-full top-1/2 transform translate-x-1/2 -translate-y-1/2" width="404" height="784" fill="none" viewBox="0 0 404 784" aria-hidden="true">
+            <defs>
+            <pattern id="56409614-3d62-4985-9a10-7ca758a8f4f0" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                <rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor" />
+            </pattern>
+            </defs>
+            <rect width="404" height="784" fill="url(#56409614-3d62-4985-9a10-7ca758a8f4f0)" />
+        </svg>
+    
+        <div class="relative lg:flex lg:items-center">
+            <div class="hidden lg:block lg:flex-shrink-0">
+            <img class="h-64 w-64 rounded-full xl:h-80 xl:w-80" src="https://images.unsplash.com/photo-1595712328338-0badd5d5f15b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=736&q=80" alt="">
+            </div>
+    
+            <div class="relative lg:ml-10">
+            <svg class="absolute top-0 left-0 transform -translate-x-8 -translate-y-24 h-36 w-36 text-indigo-200 opacity-50" stroke="currentColor" fill="none" viewBox="0 0 144 144" aria-hidden="true">
+                <path stroke-width="2" d="M41.485 15C17.753 31.753 1 59.208 1 89.455c0 24.664 14.891 39.09 32.109 39.09 16.287 0 28.386-13.03 28.386-28.387 0-15.356-10.703-26.524-24.663-26.524-2.792 0-6.515.465-7.446.93 2.327-15.821 17.218-34.435 32.11-43.742L41.485 15zm80.04 0c-23.268 16.753-40.02 44.208-40.02 74.455 0 24.664 14.891 39.09 32.109 39.09 15.822 0 28.386-13.03 28.386-28.387 0-15.356-11.168-26.524-25.129-26.524-2.792 0-6.049.465-6.98.93 2.327-15.821 16.753-34.435 31.644-43.742L121.525 15z" />
+            </svg>
+            <blockquote class="relative">
+                <div class="text-lg leading-9 font-medium text-gray-900">
+                <p>
+                    Avusturalya'da ki maceram dil eğitimi ile başladı. ardından çeşitli sertifika programları okudum. Uzun süredir makine mühendisi olarak çalışmaktayım. Aynı zamanda Engineers Australia-Women in Engineering komitesinde yayın kordinatörlüğü görevini yürütmekteyim. Edindiğim tecrübeleri sizlerle paylaşmaktan mutluluk duyarım.
+                </p>
+                </div>
+                <footer class="mt-8">
+                <div class="flex">
+                    <div class="flex-shrink-0 lg:hidden">
+                    <img class="h-12 w-12 rounded-full" src="https://images.unsplash.com/photo-1595712328338-0badd5d5f15b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=736&q=80" alt="">
+                    </div>
+                    <div class="ml-4 lg:ml-0">
+                    <div class="text-base font-medium text-gray-900">Arsen ILHAN</div>
+                    <div class="text-sm font-medium text-indigo-600">Konuşmacı</div>
+                    </div>
+                </div>
+                </footer>
+            </blockquote>
+            </div>
+        </div>
+        </div>
+    </section>
+    <div class="relative bg-white">
+        <div class="absolute inset-0">
+            <div class="absolute inset-y-0 left-0 w-1/2 "></div>
+        </div>
+        <div class="relative max-w-7xl mx-auto lg:grid lg:grid-cols-5">
+            <div class="pt-16 pb-5 px-4 sm:px-6 lg:col-span-2 lg:px-8 lg:pb-0 lg:pt-24 xl:pr-12">
+                <div class="max-w-lg mx-auto">
+                    <h2 class="text-xl font-extrabold tracking-tight text-gray-700 sm:text-xl">
+                        Webinar'da sende yerini al!
+                    </h2>
+                    <p class="mt-3 text-sm leading-6 text-gray-500">
+                        Nullam risus blandit ac aliquam justo ipsum. Quam mauris volutpat massa dictumst amet. Sapien
+                        tortor lacus arcu.
+                    </p>
+                </div>
+            </div>
+            <div class="bg-white pb-16 px-4 sm:px-6 lg:col-span-3 lg:py-24 lg:px-8 xl:pl-12">
+                <div class="max-w-lg mx-auto lg:max-w-none">
+                    <form action="#" method="POST" class="grid grid-cols-1 gap-y-6">
+                        <div class="isolate -space-y-px rounded-md shadow-sm">
+                            <div
+                                class="relative border border-gray-300 rounded-md rounded-b-none px-3 py-2 focus-within:z-10 focus-within:ring-1 focus-within:ring-blue-600 focus-within:border-blue-600">
+                                <label for="name" class="block text-xs font-medium text-gray-700">İsim</label>
+                                <input type="text" name="name" id="name"
+                                    class="block border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm"
+                                    placeholder="Jane">
+                            </div>
+                            <div
+                                class="relative border border-gray-300 px-3 py-2 focus-within:z-10 focus-within:ring-1 focus-within:ring-blue-600 focus-within:border-blue-600">
+                                <label for="surname" class="block w-full text-xs font-medium text-gray-700">Soyad</label>
+                                <input type="text" name="surname" id="surname"
+                                    class="block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm"
+                                    placeholder="Doe">
+                            </div>
+                            <div
+                                class="relative border border-gray-300 px-3 py-2 focus-within:z-10 focus-within:ring-1 focus-within:ring-blue-600 focus-within:border-blue-600">
+                                <label for="mail" class="block w-full text-xs font-medium text-gray-700">Email</label>
+                                <input type="text" name="mail" id="mail"
+                                    class="block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm"
+                                    placeholder="example@mail.com">
+                            </div>
+                            <div
+                                class="relative border border-gray-300 rounded-md rounded-t-none px-3 py-2 focus-within:z-10 focus-within:ring-1 focus-within:ring-blue-600 focus-within:border-blue-600">
+                                <label for="message" class="block w-full text-xs font-medium text-gray-700">Mesaj <span class="text-blue-400">Opsiyonel</span></label>
+                                <input type="text" name="message" id="message"
+                                    class="block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm"
+                                    placeholder="Mesaj">
+                            </div>
+                        </div>
+                            <fieldset class="space-y-5">
+                                <h2 class="text-sm font-medium tracking-tight text-gray-700">
+                                    Bizden nasıl haberdar oldun?
+                                </h2>
+                            <legend class="sr-only">Bizden nasıl haberdar oldun?</legend>
+                            <div class="relative flex items-start">
+                                <div class="flex items-center h-5">
+                                <input id="ads" name="ads" type="radio" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                <label for="ads" class="font-medium text-gray-700">Google</label>
+                                <span class="text-gray-500"><span class="sr-only">Google </span>aramalarım sonucu keşfettim</span>
+                                </div>
+                            </div>
+                            <div class="relative flex items-start">
+                                <div class="flex items-center h-5">
+                                <input id="adsw" name="ads" type="radio" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                <label for="adsw" class="font-medium text-gray-700">Sosyal Medya</label>
+                                <span class="text-gray-500"><span class="sr-only">Sosyal Medya</span>üzerinde karşıma çıktı</span>
+                                </div>
+                            </div>
+                            <div class="relative flex items-start">
+                                <div class="flex items-center h-5">
+                                <input id="adsww" name="ads" type="radio" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                <label for="adsww" class="font-medium text-gray-700">Arkadaş</label>
+                                <span class="text-gray-500"><span class="sr-only">Arkadaş</span>aracılığı ile</span>
+                                </div>
+                            </div>
+                            </fieldset>
+
+                        <div>
+                            <button type="submit"
+                                class="inline-flex items-center px-8 py-3 border border-transparent text-xs font-medium rounded-full shadow-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Geleceğini Şekillendir
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-white">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8">
+            <div class="flex justify-center space-x-6 md:order-2">
+                <a href="#" class="text-gray-400 hover:text-gray-500">
+                    <span class="sr-only">Instagram</span>
+                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                            d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </a>
+
+                <a href="#" class="text-gray-400 hover:text-gray-500">
+                    <span class="sr-only">Twitter</span>
+                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+                    </svg>
+                </a>
+            </div>
+            <div class="mt-8 md:mt-0 md:order-1">
+                <p class="text-center text-sm text-gray-400">
+                    Webinar 2021
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./src/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
+</body>
+
+</html>
